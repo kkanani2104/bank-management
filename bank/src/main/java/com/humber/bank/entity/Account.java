@@ -34,7 +34,6 @@ import lombok.NoArgsConstructor;
 public class Account{
 
 	@Id
-	@GeneratedValue  
 	private long accNumber;
 	
 	@NonNull
