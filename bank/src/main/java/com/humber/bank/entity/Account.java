@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -33,6 +34,7 @@ import lombok.NoArgsConstructor;
 public class Account{
 
 	@Id
+	@GeneratedValue
 	private long accNumber;
 	
 	@NonNull
