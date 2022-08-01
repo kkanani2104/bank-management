@@ -15,4 +15,5 @@ public interface AccountService {
 	double getBalance(long accNo);
 	public double getBalance(long accNo,long managerId);
 	
+	
 }
