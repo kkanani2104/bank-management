@@ -8,4 +8,5 @@ import com.humber.bank.entity.User;
 @Repository
 public interface UserDao extends JpaRepository<User, Long>{
 
+	User findByUserName(String username);
 }

@@ -50,15 +50,19 @@ public class Customer extends PersonalInfo {
 	@JoinColumn(name="managerId")
 	private Manager manager;
 	
-	@CreationTimestamp
-	@Column(updatable = false)
-	@JsonIgnore
-	private LocalDate createdDate;
-	
-	@UpdateTimestamp
-	@Column(updatable = true,insertable = false)
-	@JsonIgnore
-	private LocalDate lastUpdated;
+	/*
+	 * @CreationTimestamp
+	 * 
+	 * @Column(updatable = false)
+	 * 
+	 * @JsonIgnore private LocalDate createdDate;
+	 * 
+	 * @UpdateTimestamp
+	 * 
+	 * @Column(updatable = true,insertable = false)
+	 * 
+	 * @JsonIgnore private LocalDate lastUpdated;
+	 */
 
 	
 }

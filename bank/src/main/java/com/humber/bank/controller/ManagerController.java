@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,15 +18,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.humber.bank.entity.Account;
+import com.humber.bank.entity.Branch;
 import com.humber.bank.entity.CurrentAccount;
 import com.humber.bank.entity.Customer;
 import com.humber.bank.entity.Transaction;
 import com.humber.bank.exception.ResourceNotFoundException;
 import com.humber.bank.service.AccountService;
+import com.humber.bank.service.BranchService;
 import com.humber.bank.service.CustomerService;
 import com.humber.bank.service.TransactionService;
 
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/manager")
 public class ManagerController {
@@ -39,7 +43,15 @@ public class ManagerController {
 	@Autowired
 	CustomerService customerService;
 	
-
+	@Autowired
+	BranchService branchService;
+	
+	@GetMapping("/adminDashboard")
+	public String welcome() {
+		return "Managers Rest Api AdminDashboard";
+	}
+	
+	
 	@PostMapping("/withdraw")
 	public ResponseEntity<?> withdraw(@RequestBody Transaction transaction) {
 		try {
@@ -78,6 +90,7 @@ public class ManagerController {
 	public ResponseEntity<?> addCustomer(@RequestBody Customer customer) {
 		try {
 			Map<String, Customer> customerMap = customerService.addCustomer(customer);
+			System.out.println(customerMap);
 			return !customerMap.isEmpty()? new ResponseEntity<>(customerMap, HttpStatus.OK)
 					: new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		} catch (Exception exception) {
@@ -170,6 +183,16 @@ public class ManagerController {
 		}
 	}
 	
+	@PostMapping("/saveBranch")
+	public ResponseEntity<?> saveBranch(@RequestBody Branch branch){
+		try {
+			Map<String, Branch> branchMap = branchService.addBranch(branch);
+		 return  !branchMap.isEmpty() ? new ResponseEntity<>(branchMap, HttpStatus.OK)
+					: new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		} catch (Exception exception) {
+			throw new ResourceNotFoundException(exception.getMessage());
+		}
+	}
 	
 }
 
