@@ -2,9 +2,12 @@ package com.humber.bank.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,10 +21,10 @@ import com.humber.bank.service.AccountService;
 import com.humber.bank.service.CustomerService;
 import com.humber.bank.service.TransactionService;
 
-
 @CrossOrigin
 @RestController
 @RequestMapping("/api/customer")
+@PreAuthorize("hasAuthority('CUSTOMER')")
 public class CustomerController {
 
 	@Autowired
@@ -33,9 +36,18 @@ public class CustomerController {
 	@Autowired
 	CustomerService customerService;
 
+	@GetMapping("/check1")
+	public String hello() {
+		return "hello customer";
+		
+	}
+	
+	
+	
 	@GetMapping("/userDashboard")
-	public String welcome() {
-		return "Customers Rest Api UserDashboard";
+	public void method(HttpServletResponse httpServletResponse) {
+		httpServletResponse.setHeader("Location", "http://localhost:3001/MainPage");
+		httpServletResponse.setStatus(302);
 	}
 	
 	@PostMapping("/withdraw")
